@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StudentRegistration.Domain</name>
+    </assembly>
+    <members>
+        <member name="M:StudentRegistration.Domain.IStudentRepository.InsertStudent(StudentRegistration.Domain.Student)">
+            <summary>
+            Insere novos alunos
+            </summary>
+            <param name="student">Dados do aluno a ser inserido</param>
+            <returns>Dados do aluno inserido</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentRepository.Update(StudentRegistration.Domain.Student)">
+            <summary>
+            Atualiza os dados do aluno
+            </summary>
+            <param name="student">Dados do aluno</param>
+            <returns>Dados atualizados</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentRepository.Delete(StudentRegistration.Domain.Student)">
+            <summary>
+            Remove o aluno definido
+            </summary>
+            <param name="student">Dados do aluno</param>
+            <returns>Confirmação da ação</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentRepository.GetAllStudents">
+            <summary>
+            Busaca todos os alunos cadastrados
+            </summary>
+            <returns>Todos os alunos encontrados</returns>
+        </member>
+        <member name="T:StudentRegistration.Domain.Student">
+            <summary>
+            Entidade estudante
+            </summary>
+        </member>
+        <member name="M:StudentRegistration.Domain.Student.#ctor(System.String,System.String,System.String,System.String)">
+            <param name="ra">Código de identificação do aluno</param>
+            <param name="cpf">Documento de identificação do aluno</param>
+            <param name="name">Nome do aluno</param>
+        </member>
+    </members>
+</doc>

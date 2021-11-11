@@ -1,0 +1,14 @@
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\StudentRegistration.Domain.deps.json
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\StudentRegistration.Domain.dll
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\ref\StudentRegistration.Domain.dll
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\StudentRegistration.Domain.pdb
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.AssemblyInfoInputs.cache
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.AssemblyInfo.cs
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.csproj.CoreCompileInputs.cache
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.dll
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\ref\StudentRegistration.Domain.dll
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.pdb
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\StudentRegistration.Domain.xml
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.csproj.AssemblyReference.cache
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.xml
