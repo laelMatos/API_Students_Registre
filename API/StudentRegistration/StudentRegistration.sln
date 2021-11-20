@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{C08B6384-B588-4987-BE07-9FDF0482F031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Domain", "StudentRegistration.Domain\StudentRegistration.Domain.csproj", "{D875F1AD-99C4-42E3-9858-3EE3FA850C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentRegistration.Domain", "StudentRegistration.Domain\StudentRegistration.Domain.csproj", "{D875F1AD-99C4-42E3-9858-3EE3FA850C11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Repository", "StudentRegistration.Repository\StudentRegistration.Repository.csproj", "{D0A5EFAB-361A-45B2-A126-3F27D92D344B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentRegistration.Repository", "StudentRegistration.Repository\StudentRegistration.Repository.csproj", "{D0A5EFAB-361A-45B2-A126-3F27D92D344B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{47350E78-37B1-4A74-8119-64B3A0AF889A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{47350E78-37B1-4A74-8119-64B3A0AF889A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentRegistration.Service", "StudentRegistration.Service\StudentRegistration.Service.csproj", "{E9DADB28-1D47-4D61-8A3C-AF829A8A0363}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Test", "StudentRegistration.Test\StudentRegistration.Test.csproj", "{8FD23B62-85DA-48E9-8909-824701210483}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{47350E78-37B1-4A74-8119-64B3A0AF889A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47350E78-37B1-4A74-8119-64B3A0AF889A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47350E78-37B1-4A74-8119-64B3A0AF889A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9DADB28-1D47-4D61-8A3C-AF829A8A0363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9DADB28-1D47-4D61-8A3C-AF829A8A0363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9DADB28-1D47-4D61-8A3C-AF829A8A0363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9DADB28-1D47-4D61-8A3C-AF829A8A0363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FD23B62-85DA-48E9-8909-824701210483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FD23B62-85DA-48E9-8909-824701210483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FD23B62-85DA-48E9-8909-824701210483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FD23B62-85DA-48E9-8909-824701210483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

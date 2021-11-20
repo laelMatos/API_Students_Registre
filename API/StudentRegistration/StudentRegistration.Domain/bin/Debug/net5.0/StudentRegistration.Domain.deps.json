@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v5.0": {
       "StudentRegistration.Domain/1.0.0": {
+        "dependencies": {
+          "Common": "1.0.0"
+        },
         "runtime": {
           "StudentRegistration.Domain.dll": {}
+        }
+      },
+      "Common/1.0.0": {
+        "runtime": {
+          "Common.dll": {}
         }
       }
     }
   },
   "libraries": {
     "StudentRegistration.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

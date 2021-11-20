@@ -12,3 +12,6 @@ D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistratio
 D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\StudentRegistration.Domain.xml
 D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.csproj.AssemblyReference.cache
 D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.xml
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\Common.dll
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\bin\Debug\net5.0\Common.pdb
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Domain\obj\Debug\net5.0\StudentRegistration.Domain.csproj.CopyComplete

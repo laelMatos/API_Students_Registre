@@ -8,16 +8,25 @@
 		<!--Gera documentação xml-->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<!--Suprime o aviso de falta de documentação-->
-		<NoWarn>$(NoWarn);1591</NoWarn>		
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<StartupObject>StudentRegistration.API.Program</StartupObject>		
 	</PropertyGroup>
 	
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\StudentRegistration.Domain\StudentRegistration.Domain.csproj" />
+    <ProjectReference Include="..\StudentRegistration.Repository\StudentRegistration.Repository.csproj" />
+    <ProjectReference Include="..\StudentRegistration.Service\StudentRegistration.Service.csproj" />
   </ItemGroup>
 
 </Project>

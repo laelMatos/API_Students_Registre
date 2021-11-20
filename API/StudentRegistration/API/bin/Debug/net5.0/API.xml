@@ -4,5 +4,83 @@
         <name>API</name>
     </assembly>
     <members>
+        <member name="M:API.Controllers.StudentController.GetAll(StudentRegistration.Domain.IStudentService)">
+            <summary>
+            Busca todos os alunos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.StudentController.GetByRA(StudentRegistration.Domain.IStudentService,API.Model.StudentRA)">
+            <summary>
+            Busca um aluno pelo RA
+            </summary>
+            <param name="ra">Código do aluno</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.StudentController.Add(StudentRegistration.Domain.IStudentService,API.Model.StudentMd)">
+            <summary>
+            Cadastra um novo aluno
+            </summary>
+            <param name="model">Dados do aluno</param>
+            <returns></returns>
+            <response code="200">Retorna o novo aluno cadastrado</response>
+            <response code="400">Inconsistencia de dados</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:API.Controllers.StudentController.Updade(StudentRegistration.Domain.IStudentService,API.Model.StudentUpdateMd)">
+            <summary>
+            Atualiza os dados do aluno
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Retorna o novo aluno cadastrado</response>
+            <response code="400">Inconsistencia de dados</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:API.Controllers.StudentController.Delete(StudentRegistration.Domain.IStudentService,API.Model.StudentRA)">
+            <summary>
+            Remove um aluno especificado
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+            <response code="200">Retorna o novo aluno cadastrado</response>
+            <response code="400">Inconsistencia de dados</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="P:API.Model.StudentRA.RA">
+            <summary>
+            Código de identificação do aluno
+            </summary>
+        </member>
+        <member name="P:API.Model.StudentUpdateMd.Name">
+            <summary>
+            Nome do aluno
+            </summary>
+        </member>
+        <member name="P:API.Model.StudentUpdateMd.Email">
+            <summary>
+            Email do aluno
+            </summary>
+        </member>
+        <member name="P:API.Model.StudentMd.CPF">
+            <summary>
+            Documento de identificação do aluno
+            </summary>
+        </member>
+        <member name="P:API.Model.StudentMd.Name">
+            <summary>
+            Nome do aluno
+            </summary>
+        </member>
+        <member name="P:API.Model.StudentMd.Email">
+            <summary>
+            Email do aluno
+            </summary>
+        </member>
+        <member name="T:StudentRegistration.API.ValidateModelStateFilter">
+            <summary>
+            Define o objeto de retorno para identificar os erros.
+            </summary>
+        </member>
     </members>
 </doc>

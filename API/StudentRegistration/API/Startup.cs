@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using StudentRegistration.Domain;
+using StudentRegistration.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace StudentRegistration.API
 {
@@ -26,6 +26,7 @@ namespace StudentRegistration.API
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,8 +38,53 @@ namespace StudentRegistration.API
             });
 
             services.AddCors();
+            
+            
+            services.AddControllers(options => {
+                //Filtro de validações
+                options.Filters.Add(typeof(ValidateModelStateFilter));
+            });
 
-            services.AddControllers();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                //Desativar filtro nativo para que utilize apenas o filtro personalizado
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            #region Conexão com o banco
+            //Captura a connection string para se conectar com o banco de dados
+            string mySqlConnectionStr = Configuration.GetConnectionString("ConnectionString");
+
+            //Conecta no banco especificado
+            var dataBaseType = Configuration.GetValue(typeof(EDBType), "DatabaseType");
+            switch (dataBaseType)
+            {
+                //Banco de dados em memória
+                case EDBType.InMemory:
+                    services.AddDbContext<ConnectionEf>(options =>
+                    options.UseInMemoryDatabase("Database"));
+                    break;
+                //Conexão com banco SqlServer
+                case EDBType.SqlServer:
+                    services.AddDbContext<ConnectionEf>(options =>
+                    options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+                    break;
+                //Conexão com banco Postgress
+                case EDBType.Postgres:
+                    services.AddDbContext<ConnectionEf>(options =>
+                    options.UseNpgsql(mySqlConnectionStr));
+                    break;
+                //Conexão com banco MySql
+                case EDBType.Mysql:
+                    services.AddDbContext<ConnectionEf>(options =>
+                    options.UseSqlServer(mySqlConnectionStr));
+                    break;
+            }
+            #endregion
+
+            //Injeção de dependencias
+            var dependency = new Dependencys(services);
+
             #region Configurações Swagger
             services.AddSwaggerGen(c =>
             {
@@ -98,11 +144,16 @@ namespace StudentRegistration.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "StudentRegistration.API v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    // Desabilitar swagger schemas
+                    c.DefaultModelsExpandDepth(-1);
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "StudentRegistration.API v1");
+                });
             }
 
-            app.UseRouting();
             app.UseHttpsRedirection();
+            app.UseRouting();
 
             app.UseCors(x => x
            .AllowAnyOrigin()

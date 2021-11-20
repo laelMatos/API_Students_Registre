@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StudentRegistration.Repository.Repositories
+namespace StudentRegistration.Repository
 {
     public class StudentRepository : IStudentRepository
     {
@@ -23,12 +23,12 @@ namespace StudentRegistration.Repository.Repositories
             return true;
         }
 
-        public IEnumerable<Student> GetAllStudents()
+        public IEnumerable<Student> GetAll()
         {
             return _Db.Students.AsQueryable().ToArray();
         }
 
-        public Student InsertStudent(Student student)
+        public Student Add(Student student)
         {
             if (student == null)
                 throw new System.ArgumentNullException();
@@ -48,6 +48,11 @@ namespace StudentRegistration.Repository.Repositories
             _Db.SaveChanges();
 
             return student;
+        }
+
+        public Student GetByRA(string ra)
+        {
+            return _Db.Students.Where(x=>x.RA == ra).FirstOrDefault();
         }
     }
 }

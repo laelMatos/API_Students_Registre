@@ -10,7 +10,7 @@ namespace StudentRegistration.Domain
         /// </summary>
         /// <param name="student">Dados do aluno a ser inserido</param>
         /// <returns>Dados do aluno inserido</returns>
-        Student InsertStudent(Student student);
+        Student Add(Student student);
         /// <summary>
         /// Atualiza os dados do aluno
         /// </summary>
@@ -23,10 +23,18 @@ namespace StudentRegistration.Domain
         /// <param name="student">Dados do aluno</param>
         /// <returns>Confirmação da ação</returns>
         bool Delete(Student student);
+
+        /// <summary>
+        /// Busca aluno pelo RA
+        /// </summary>
+        /// <param name="ra">Código de identificação do aluno</param>
+        /// <returns>Aluno encontrado ou null</returns>
+        Student GetByRA(string ra);
+
         /// <summary>
         /// Busaca todos os alunos cadastrados
         /// </summary>
         /// <returns>Todos os alunos encontrados</returns>
-        IEnumerable<Student> GetAllStudents();
+        IEnumerable<Student> GetAll();
     }
 }

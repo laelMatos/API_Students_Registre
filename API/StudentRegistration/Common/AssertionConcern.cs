@@ -1,10 +1,99 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
-
-namespace SweetPet.Common
+namespace Common
 {
     public static class AssertionConcern
     {
+
+        /// <summary>
+        /// Verifica o intervalo de um tamanho. (Ex: quantidade de posições de uma string).
+        /// </summary>
+        /// <param name="obj">Objeto a ser verificado.</param>
+        /// <param name="QtdMin">Quantidade minima a ser verificada.</param>
+        /// <param name="QtdMax">Quantidade maxima a ser verificada.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertArgumentRangeLenght(string obj, int QtdMin, int QtdMax)
+        {
+            return (obj.Length < QtdMin || obj.Length > QtdMax);
+        }
+
+        /// <summary>
+        /// Verifica o intervalo de um tamanho. (Ex: quantidade de posições de uma string).
+        /// </summary>
+        /// <param name="obj">Objeto a ser verificado.</param>
+        /// <param name="QtdMin">Quantidade minima a ser verificada.</param>
+        /// <param name="QtdMax">Quantidade maxima a ser verificada.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertArgumentRangeLenght(int obj, int QtdMin, int QtdMax)
+        {
+            return (obj < QtdMin || obj > QtdMax);
+        }
+
+        /// <summary>
+        /// Verifica o tamanho maximo. (Ex: quantidade de posições de uma string).
+        /// </summary>
+        /// <param name="obj">Objeto a ser verificado.</param>
+        /// <param name="QtdMax">Quantidade maxima a ser verificada.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertArgumentMaxLenght(string obj, int QtdMax)
+        {
+            return obj.Length <= QtdMax;
+        }
+
+        /// <summary>
+        /// Verifica o tamanho maximo. (Ex: quantidade de posições de uma string).
+        /// </summary>
+        /// <param name="obj">Objeto a ser verificado.</param>
+        /// <param name="QtdMax">Quantidade maxima a ser verificada.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertArgumentMaxLenght(int obj, int QtdMax)
+        {
+            return obj <= QtdMax;
+        }
+
+        /// <summary>
+        /// Verifica o tamanho minimo. (Ex: quantidade de posições de uma string).
+        /// </summary>
+        /// <param name="obj">Objeto a ser verificado.</param>
+        /// <param name="QtdMin">Quantidade minima a ser verificada.</param>
+        /// <param name="QtdMax">Quantidade maxima a ser verificada.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertArgumentMinLenght(string obj, int QtdMin)
+        {
+            return (obj.Length >= QtdMin);
+        }
+
+        /// <summary>
+        /// Verifica o tamanho minimo. (Ex: quantidade de posições de uma string).
+        /// </summary>
+        /// <param name="obj">Objeto a ser verificado.</param>
+        /// <param name="QtdMin">Quantidade minima a ser verificada.</param>
+        /// <param name="QtdMax">Quantidade maxima a ser verificada.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertArgumentMinLenght(int obj, int QtdMin)
+        {
+            return (obj >= QtdMin);
+        }
+
+
+        /// <summary>
+        /// Verifica se é um email valido.
+        /// </summary>
+        /// <param name="email">Email a ser verificado.</param>
+        /// <returns>Valido / invalido (true / false)</returns>
+        public static bool AssertEmailIsValid(string email)
+        {
+            if(string.IsNullOrEmpty(email))
+                return true;
+            if (!email.ToLower().Equals(email))
+                return false;
+            if (!Regex.IsMatch(email, @"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$", RegexOptions.IgnoreCase))
+                return false;
+
+            return true;
+        }
 
         /// <summary>
         /// Valida se um cpf é válido

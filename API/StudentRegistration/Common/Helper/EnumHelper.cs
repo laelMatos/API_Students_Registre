@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 
-namespace SweetPet.Common.Helper
+namespace Common
 {
     public static class EnumHelper
     {

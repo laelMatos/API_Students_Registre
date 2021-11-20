@@ -4,7 +4,67 @@
         <name>StudentRegistration.Domain</name>
     </assembly>
     <members>
-        <member name="M:StudentRegistration.Domain.IStudentRepository.InsertStudent(StudentRegistration.Domain.Student)">
+        <member name="T:StudentRegistration.Domain.EDBType">
+            <summary>
+            Tipos de bancos de dados
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.OK">
+            <summary>
+            Estas requisição foi bem sucedida. O significado do sucesso varia de acordo com o método HTTP
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.Created">
+            <summary>
+            A requisição foi bem sucedida e um novo recurso foi criado como resultado. Esta é uma tipica resposta enviada após uma requisição POST
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.BadRequest">
+            <summary>
+            Essa resposta significa que o servidor não entendeu a requisição pois está com uma sintaxe inválida.
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.Unauthorized">
+            <summary>
+            Embora o padrão HTTP especifique "unauthorized", semanticamente, essa resposta significa "unauthenticated". Ou seja, o cliente deve se autenticar para obter a resposta solicitada.
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.Forbidden">
+            <summary>
+            O cliente não tem direitos de acesso ao conteúdo portanto o servidor está rejeitando dar a resposta. Diferente do código 401, aqui a identidade do cliente é conhecida.
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.NotFound">
+            <summary>
+            O servidor não pode encontrar o recurso solicitado. Este código de resposta talvez seja o mais famoso devido à frequência com que acontece na web.
+            </summary>
+        </member>
+        <member name="P:StudentRegistration.Domain.Notification.Title">
+            <summary>
+            Titulo da menssagem
+            </summary>
+        </member>
+        <member name="P:StudentRegistration.Domain.Notification.Success">
+            <summary>
+            Indica sucesso(true) ou não(false)
+            </summary>
+        </member>
+        <member name="P:StudentRegistration.Domain.Notification.Messages">
+            <summary>
+            Lista de Mensagens
+            </summary>
+        </member>
+        <member name="P:StudentRegistration.Domain.Messages.Message">
+            <summary>
+            Mensagem do resultado
+            </summary>
+        </member>
+        <member name="P:StudentRegistration.Domain.Messages.ErrorField">
+            <summary>
+            Campo com erro
+            </summary>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentRepository.Add(StudentRegistration.Domain.Student)">
             <summary>
             Insere novos alunos
             </summary>
@@ -25,11 +85,54 @@
             <param name="student">Dados do aluno</param>
             <returns>Confirmação da ação</returns>
         </member>
-        <member name="M:StudentRegistration.Domain.IStudentRepository.GetAllStudents">
+        <member name="M:StudentRegistration.Domain.IStudentRepository.GetByRA(System.String)">
+            <summary>
+            Busca aluno pelo RA
+            </summary>
+            <param name="ra">Código de identificação do aluno</param>
+            <returns>Aluno encontrado ou null</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentRepository.GetAll">
             <summary>
             Busaca todos os alunos cadastrados
             </summary>
             <returns>Todos os alunos encontrados</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentService.GetAll">
+            <summary>
+            Busaca todos os alunos cadastrados
+            </summary>
+            <returns>Todos os alunos encontrados</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentService.GetByRA(System.String)">
+            <summary>
+            Busca aluno pelo RA
+            </summary>
+            <param name="ra">Código de identificação do aluno</param>
+            <returns></returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentService.Add(StudentRegistration.Domain.Student)">
+            <summary>
+            Insere novos alunos
+            </summary>
+            <param name="student">Dados do aluno a ser inserido</param>
+            <returns>Dados do aluno inserido</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentService.Update(System.String,System.String,System.String)">
+            <summary>
+            Atualiza os dados do aluno
+            </summary>
+            <param name="ra">Código de identificação do launo</param>
+            <param name="email">Email do aluno</param>
+            <param name="name">Nome do aluno</param>
+            <returns>Dados atualizados</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IStudentService.Delete(System.String)">
+            <summary>
+            Remove o aluno definido
+            </summary>
+            <param ra="student">Código de identificação do aluno</param>
+            <returns>Confirmação da ação</returns>
         </member>
         <member name="T:StudentRegistration.Domain.Student">
             <summary>
@@ -40,6 +143,12 @@
             <param name="ra">Código de identificação do aluno</param>
             <param name="cpf">Documento de identificação do aluno</param>
             <param name="name">Nome do aluno</param>
+            <param name="email">Email do aluno</param>
+        </member>
+        <member name="M:StudentRegistration.Domain.Student.Update(System.String,System.String)">
+            <summary>
+            Atualiza Nome ou/e Email
+            </summary>
         </member>
     </members>
 </doc>

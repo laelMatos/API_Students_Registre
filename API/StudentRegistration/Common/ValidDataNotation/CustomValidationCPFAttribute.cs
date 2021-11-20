@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace SweetPet.Common
+namespace Common
 {
     /// <summary>
     /// Validação customizada para CPF

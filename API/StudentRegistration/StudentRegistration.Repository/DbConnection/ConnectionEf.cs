@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentRegistration.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentRegistration.Repository
 {
@@ -24,8 +19,8 @@ namespace StudentRegistration.Repository
             modelBuilder.Entity<Student>()
                 .HasIndex(u => u.RA).IsUnique();
             //Não permite cadastro com CPF já existente
-            modelBuilder.Entity<Student>()
-                .HasIndex(u => u.CPF).IsUnique();
+            //modelBuilder.Entity<Student>()
+            //    .HasIndex(u => u.CPF).IsUnique();
         }
     }
 }
