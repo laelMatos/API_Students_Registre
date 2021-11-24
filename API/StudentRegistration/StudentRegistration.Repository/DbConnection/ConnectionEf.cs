@@ -11,6 +11,7 @@ namespace StudentRegistration.Repository
         }
 
         public DbSet<Student> Students { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,9 +19,9 @@ namespace StudentRegistration.Repository
             //Não permite cadastro com RA já existente
             modelBuilder.Entity<Student>()
                 .HasIndex(u => u.RA).IsUnique();
-            //Não permite cadastro com CPF já existente
-            //modelBuilder.Entity<Student>()
-            //    .HasIndex(u => u.CPF).IsUnique();
+            //Não permite cadastro que tenha email já existente
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email).IsUnique();
         }
     }
 }

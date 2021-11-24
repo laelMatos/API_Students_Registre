@@ -22,7 +22,7 @@ namespace StudentRegistration.Domain
         /// </summary>
         /// <param name="student">Dados do aluno</param>
         /// <returns>Confirmação da ação</returns>
-        bool Delete(Student student);
+        bool Delete(string ra);
 
         /// <summary>
         /// Busca aluno pelo RA

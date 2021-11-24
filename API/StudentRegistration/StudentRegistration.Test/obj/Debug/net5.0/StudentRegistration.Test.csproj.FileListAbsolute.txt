@@ -154,3 +154,4 @@ D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistratio
 D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Test\obj\Debug\net5.0\ref\StudentRegistration.Test.dll
 D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Test\obj\Debug\net5.0\StudentRegistration.Test.pdb
 D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Test\obj\Debug\net5.0\StudentRegistration.Test.genruntimeconfig.cache
+D:\Trabalhos\+Educacao\Teste_09-11-21\API\StudentRegistration\StudentRegistration.Test\bin\Debug\net5.0\BCrypt.Net-Core.dll

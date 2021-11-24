@@ -34,7 +34,7 @@ namespace StudentRegistration.Domain
         /// </summary>
         /// <param ra="student">Código de identificação do aluno</param>
         /// <returns>Confirmação da ação</returns>
-        bool Delete(string ra);
+        Notification Delete(string ra);
 
     }
 }

@@ -10,29 +10,39 @@ namespace StudentRegistration.Domain
     /// Entidade estudante
     /// </summary>
     [Table("Students")]
-    public class Student
+    public class Student : EmailAssets
     {
-        [NotMapped]
-        public Notification NOTIFICATION { get; set; }
-        [NotMapped]
-        private List<Messages> MESSAGES;
 
-        protected Student(){
-            MESSAGES = new List<Messages>();
-            NOTIFICATION = new Notification();
+        protected Student(){}
+
+        /// <summary>
+        /// Cria um estudante inválido para notificação de resposta
+        /// </summary>
+        /// <param name="responseCode">Código de resposta HTTP</param>
+        /// <param name="title">Titulo da notificação</param>
+        /// <param name="message">Menssagem da notificação</param>
+        /// <param name="field">Parametro inválido</param>
+        public Student(EHttpResponseCode responseCode, string title, string message, string field = null)
+        {
+            NOTIFICATION.Title = title;
+            NOTIFICATION.HttpStatusCode = responseCode;
+            MESSAGES.Add(new Messages() { Message = message , ErrorField= field});
+            NOTIFICATION.Messages = MESSAGES;
         }
 
+        /// <summary>
+        /// Cria um estudante valido
+        /// </summary>
         /// <param name="ra">Código de identificação do aluno</param>
         /// <param name="cpf">Documento de identificação do aluno</param>
         /// <param name="name">Nome do aluno</param>
         /// <param name="email">Email do aluno</param>
-        public Student(string ra, string cpf, string name, string email)
+        public Student(string ra, string cpf, string name, string email):base(email)
         {
 
             RA = ra;
             CPF = cpf;
             Name = name;
-            Email = email;
             Created_at = DateTime.UtcNow;
             
             Validate();
@@ -52,10 +62,6 @@ namespace StudentRegistration.Domain
         public string Name { get; protected set; }
 
         [Required]
-        [MaxLength(60)]
-        public string Email { get; protected set; }
-
-        [Required]
         public DateTime Created_at { get; protected set; }
         public DateTime? Update_at { get; protected set; }
         public DateTime? Last_acess { get; protected set; }
@@ -70,9 +76,6 @@ namespace StudentRegistration.Domain
         /// </summary>
         public void Update(string? name, string? email)
         {
-            NOTIFICATION = new Notification() { Title = "Atualização de dados" };
-            MESSAGES = new List<Messages>();
-
             if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(email))
             {
                 MESSAGES.Add(new Messages() { Message = "Nenhum dado foi enviado, nome e email estão vazios" });
@@ -100,9 +103,6 @@ namespace StudentRegistration.Domain
 
         public void Validate()
         {
-            NOTIFICATION = new Notification() { Title = "Validação dados do aluno" };
-            MESSAGES = new List<Messages>();
-
             ValidRA(RA);
             ValidCPF(CPF);
             ValidName(Name);
@@ -140,17 +140,6 @@ namespace StudentRegistration.Domain
                 return false;
             }
             return true;
-        }
-
-        private bool ValidEmail(string email)
-        {
-            if (string.IsNullOrEmpty(email) || !AssertionConcern.AssertEmailIsValid(email))
-            {
-                MESSAGES.Add(new Messages() { Message = "Email inválido" });
-                return false;
-            }
-            return true;
-
         }
 
     }

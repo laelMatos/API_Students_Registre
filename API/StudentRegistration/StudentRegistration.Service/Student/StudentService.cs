@@ -28,19 +28,10 @@ namespace StudentRegistration.Service
                     return Repository.Add(student);
                 else
                 {
-                    studentDb = new Student("", "", "", "");
-
-                    studentDb.NOTIFICATION = new Notification()
-                    {
-                        Title = "Aluno existente",
-                        HttpStatusCode = EHttpResponseCode.BadRequest
-                    };
-                    studentDb.NOTIFICATION.Messages = new List<Messages>() { new Messages {
-                        Message="O RA informado ja foi cadastrado",
-                        ErrorField="RA"
-                    } };
-
-                    return studentDb;
+                    return new Student(EHttpResponseCode.NotFound,
+                        "Aluno existente",
+                        "O RA informado não foi cadastrado",
+                        "RA");
                 }
             }
             catch (Exception)
@@ -68,17 +59,10 @@ namespace StudentRegistration.Service
                 Student studentDB = Repository.GetByRA(ra);
                 if (studentDB == null)
                 {
-                    studentDB = new Student("", "", "", "");
-
-                    studentDB.NOTIFICATION = new Notification() { 
-                        Title = "Aluno não encontrado", 
-                        HttpStatusCode= EHttpResponseCode.NotFound};
-                    studentDB.NOTIFICATION.Messages = new List<Messages>() { new Messages { 
-                        Message="O RA informado não foi cadastrado",
-                        ErrorField="RA"
-                    } };
-
-                    return studentDB;
+                    return new Student(EHttpResponseCode.NotFound, 
+                        "Aluno não encontrado", 
+                        "O RA informado não foi cadastrado", 
+                        "RA");
                 }
 
                 studentDB.Update(name, email);
@@ -95,17 +79,33 @@ namespace StudentRegistration.Service
            
         }
 
-        public bool Delete(string ra)
+        public Notification Delete(string ra)
         {
             try
             {
                 Student studentDB = Repository.GetByRA(ra);
                 if (studentDB == null)
                 {
-                    return false;
+                    return new Notification
+                    {
+                        HttpStatusCode = EHttpResponseCode.NotFound,
+                        Title = "Aluno não encontrado",
+                        Messages = new List<Messages> { new Messages {
+                            Message = "O RA informado não foi cadastrado",
+                            ErrorField = "RA", }}
+                    };
                 }
 
-                    return Repository.Delete(studentDB);
+                Repository.Delete(ra);
+
+                return new Notification
+                {
+                    HttpStatusCode = EHttpResponseCode.OK,
+                    Title = "Remover aluno",
+                    Messages = new List<Messages> { new Messages {
+                            Message = "Aluno removido com sucesso",
+                            ErrorField = "RA", }}
+                };
             }
             catch (Exception)
             {
@@ -117,7 +117,17 @@ namespace StudentRegistration.Service
         {
             try
             {
-                return Repository.GetByRA(ra);
+                var studentDb =  Repository.GetByRA(ra);
+
+                if (studentDb == null)
+                {
+                    return new Student(EHttpResponseCode.NotFound,
+                        "Aluno não encontrado",
+                        "O RA informado não foi cadastrado",
+                        "RA");
+                }
+
+                return studentDb;
             }
             catch (Exception)
             {

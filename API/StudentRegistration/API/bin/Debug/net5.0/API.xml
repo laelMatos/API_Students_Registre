@@ -4,18 +4,49 @@
         <name>API</name>
     </assembly>
     <members>
+        <member name="M:SweetPet.Api.Controllers.AuthController.Autenticator(API.Model.LoginRequest,StudentRegistration.Service.IAuthService)">
+            <summary>
+            Rota que autentica o usuário
+            </summary>
+            <returns>Retorna o login do usuário e o token de autenticação  
+            que deve ser informado nas outras requisições através do header Authorization Bearer</returns>
+            <response code="200">Retorna o token de autenticação e o usuário</response>
+            <response code="400">Informações inconsistentes</response>
+            <response code="401">Login ou senha incorretos.</response>
+            <response code="500">Erro interno.</response>
+        </member>
+        <member name="M:SweetPet.Api.Controllers.AuthController.Session(StudentRegistration.Service.IAuthService,StudentRegistration.Service.IUserService)">
+            <summary>
+            Rota para sessão de usuário e autorização
+            </summary>
+            <param name="model"></param>
+            <param name="authService"></param>
+            <returns>Retorna o novo token de autenticação e dados da sessão do usuário</returns>
+            <response code="200">Retorna a sessão com o token do usuário</response>
+            <response code="400">Informações inconsistentes</response>
+            <response code="401">Token inválido</response>
+            <response code="500">Erro interno.</response>
+        </member>
         <member name="M:API.Controllers.StudentController.GetAll(StudentRegistration.Domain.IStudentService)">
             <summary>
             Busca todos os alunos
             </summary>
             <returns></returns>
+            <response code="200">Retorna todos os alunos cadastrados</response>
+            <response code="400">Inconsistencia de dados</response>
+            <response code="401">Não authorizado</response>
+            <response code="500">Erro interno</response>
         </member>
         <member name="M:API.Controllers.StudentController.GetByRA(StudentRegistration.Domain.IStudentService,API.Model.StudentRA)">
             <summary>
             Busca um aluno pelo RA
             </summary>
-            <param name="ra">Código do aluno</param>
+            <param name="model">Código do aluno</param>
             <returns></returns>
+            <response code="200">Retorna o novo aluno solicitado</response>
+            <response code="400">Inconsistencia de dados</response>
+            <response code="401">Não authorizado</response>
+            <response code="500">Erro interno</response>
         </member>
         <member name="M:API.Controllers.StudentController.Add(StudentRegistration.Domain.IStudentService,API.Model.StudentMd)">
             <summary>
@@ -25,6 +56,7 @@
             <returns></returns>
             <response code="200">Retorna o novo aluno cadastrado</response>
             <response code="400">Inconsistencia de dados</response>
+            <response code="401">Não authorizado</response>
             <response code="500">Erro interno</response>
         </member>
         <member name="M:API.Controllers.StudentController.Updade(StudentRegistration.Domain.IStudentService,API.Model.StudentUpdateMd)">
@@ -44,6 +76,16 @@
             <param name="model"></param>
             <returns></returns>
             <response code="200">Retorna o novo aluno cadastrado</response>
+            <response code="400">Inconsistencia de dados</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:API.Controllers.UserController.CreateUser(API.Model.User.UserRequest,StudentRegistration.Service.IUserService)">
+            <summary>
+            Responsável por inserir um novo usuário
+            </summary>
+            <param name="model">Dados do usuario</param>
+            <returns>O novo usuário criado</returns>
+            <response code="200">Retorna o novo usuário criado</response>
             <response code="400">Inconsistencia de dados</response>
             <response code="500">Erro interno</response>
         </member>
@@ -75,6 +117,26 @@
         <member name="P:API.Model.StudentMd.Email">
             <summary>
             Email do aluno
+            </summary>
+        </member>
+        <member name="P:API.Model.User.UserRequest.Name">
+            <summary>
+            Nome do usuário
+            </summary>
+        </member>
+        <member name="P:API.Model.User.UserRequest.Email">
+            <summary>
+            Email do usuário
+            </summary>
+        </member>
+        <member name="P:API.Model.User.UserRequest.Password">
+            <summary>
+            Senha do usuário
+            </summary>
+        </member>
+        <member name="P:API.Model.User.UserRequest.eType">
+            <summary>
+            Tipo do usuário
             </summary>
         </member>
         <member name="T:StudentRegistration.API.ValidateModelStateFilter">

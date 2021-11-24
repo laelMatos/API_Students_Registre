@@ -42,5 +42,9 @@ namespace StudentRegistration.Domain
         NotFound = 404,
 
         //---5xx------------------------------------------------------------------------
+        /// <summary>
+        /// O servidor encontrou uma situação com a qual não sabe lidar.
+        /// </summary>
+        InternalServerError = 500,
     }
 }

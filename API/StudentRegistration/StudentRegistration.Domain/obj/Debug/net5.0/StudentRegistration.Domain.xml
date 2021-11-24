@@ -39,6 +39,94 @@
             O servidor não pode encontrar o recurso solicitado. Este código de resposta talvez seja o mais famoso devido à frequência com que acontece na web.
             </summary>
         </member>
+        <member name="F:StudentRegistration.Domain.EHttpResponseCode.InternalServerError">
+            <summary>
+            O servidor encontrou uma situação com a qual não sabe lidar.
+            </summary>
+        </member>
+        <member name="T:StudentRegistration.Domain.Enuns.ETypeUser">
+            <summary>
+            Tipo de usuario
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.Enuns.ETypeUser.User">
+            <summary>
+            Usuário
+            </summary>
+        </member>
+        <member name="F:StudentRegistration.Domain.Enuns.ETypeUser.Adm">
+            <summary>
+            Administrador
+            </summary>
+        </member>
+        <member name="T:StudentRegistration.Domain.IBaseRepository`1">
+            <summary>
+            Repositório genérico
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.GetAll">
+            <summary>
+            Busca todos os objetos no banco de dados
+            </summary>
+            <returns>Retorna todas as entidades encontradas</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.GetById(System.Int32)">
+            <summary>
+            Busca o objeto que tenha a chave correspondente à solicitada no banco de dados
+            </summary>
+            <param name="id">Chave de identificação</param>
+            <returns>Retorna a entidade encontrada</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.GetByParam(System.Func{`0,System.Boolean})">
+            <summary>
+            Busca os objetos que atendam ao parametro definido no banco de dados
+            </summary>
+            <param name="predicate">Parametro de busca</param>
+            <returns>Retorna as entidades encontradas</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.Insert(`0)">
+            <summary>
+            Insere um objeto ao banco de dados
+            </summary>
+            <param name="entity">objeto a ser inserido</param>
+            <returns>Retorna o objeto inserido</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.InsertRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Insere varios objetos ao banco de dados
+            </summary>
+            <param name="entity">objetos a serem inseridos</param>
+            <returns>Retorna os objetos inseridos</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.Update(`0)">
+            <summary>
+            Atualiza um objeto no banco de dados
+            </summary>
+            <param name="entity">objeto a ser atualizado</param>
+            <returns>Retorna o objeto atualizado</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.UpdateRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Atualiza varios objetos no banco de dados
+            </summary>
+            <param name="entity">objetos a serem atualizado</param>
+            <returns>Retorna os objetos atualizados</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.Delete(`0)">
+            <summary>
+            Remove o objeto do banco de dados
+            </summary>
+            <param name="entity">objeto a ser Removido</param>
+            <returns>Confirmação de conclusão da tarefa</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IBaseRepository`1.DeleteRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Remove varios objetos do banco de dados
+            </summary>
+            <param name="entity">objetos a serem Removidos</param>
+            <returns>Confirmação de conclusão da tarefa</returns>
+        </member>
         <member name="P:StudentRegistration.Domain.Notification.Title">
             <summary>
             Titulo da menssagem
@@ -78,7 +166,7 @@
             <param name="student">Dados do aluno</param>
             <returns>Dados atualizados</returns>
         </member>
-        <member name="M:StudentRegistration.Domain.IStudentRepository.Delete(StudentRegistration.Domain.Student)">
+        <member name="M:StudentRegistration.Domain.IStudentRepository.Delete(System.String)">
             <summary>
             Remove o aluno definido
             </summary>
@@ -139,7 +227,19 @@
             Entidade estudante
             </summary>
         </member>
+        <member name="M:StudentRegistration.Domain.Student.#ctor(StudentRegistration.Domain.EHttpResponseCode,System.String,System.String,System.String)">
+            <summary>
+            Cria um usuário inválido para notificação de resposta
+            </summary>
+            <param name="responseCode">Código de resposta HTTP</param>
+            <param name="title">Titulo da notificação</param>
+            <param name="message">Menssagem da notificação</param>
+            <param name="field">Parametro inválido</param>
+        </member>
         <member name="M:StudentRegistration.Domain.Student.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Cria um usuário valido
+            </summary>
             <param name="ra">Código de identificação do aluno</param>
             <param name="cpf">Documento de identificação do aluno</param>
             <param name="name">Nome do aluno</param>
@@ -149,6 +249,63 @@
             <summary>
             Atualiza Nome ou/e Email
             </summary>
+        </member>
+        <member name="T:StudentRegistration.Domain.IUserRepository">
+            <summary>
+            Interface do repositorio de usuário
+            </summary>
+        </member>
+        <member name="M:StudentRegistration.Domain.IUserRepository.GetByLogin(System.String)">
+            <summary>
+            Busca usuario por algum parametro passado
+            </summary>
+            <param name="login">Valor referente a Login || Email || CPF</param>
+            <returns></returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.IUserRepository.GetByEmail(System.String)">
+            <summary>
+            Busca o usuario pelo email
+            </summary>
+            <param name="email">Email</param>
+            <returns>Usuário</returns>
+        </member>
+        <member name="M:StudentRegistration.Domain.Pass.SetPassword(System.String)">
+            <summary>
+            Insere a senha
+            </summary>
+            <param name="password">Senha</param>
+        </member>
+        <member name="M:StudentRegistration.Domain.User.ExistEmail(System.Boolean)">
+            <summary>
+            atribui uma mensagem de erro caso tenha um usuario como mesmo email.
+            </summary>
+            <param name="exist">Confirmação da existencia</param>
+        </member>
+        <member name="T:StudentRegistration.Service.IUserService">
+            <summary>
+            Interface do serviço de usuário
+            </summary>
+        </member>
+        <member name="M:StudentRegistration.Service.IUserService.GetByEmail(System.String)">
+            <summary>
+            Busca o usuario pelo email
+            </summary>
+            <param name="email">Email</param>
+            <returns>Usuário</returns>
+        </member>
+        <member name="M:StudentRegistration.Service.IUserService.ExistEmail(System.String)">
+            <summary>
+            Verifica se exite um usuário cadastrado com o mesmo email
+            </summary>
+            <param name="email">Email a ser verificado</param>
+            <returns>Confirmação</returns>
+        </member>
+        <member name="M:StudentRegistration.Service.IUserService.GetById(System.Int32)">
+            <summary>
+            Busca o usuário pelo código de identificação
+            </summary>
+            <param name="id">Código de identificação</param>
+            <returns>Usuário encontrado</returns>
         </member>
     </members>
 </doc>

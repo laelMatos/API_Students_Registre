@@ -24,14 +24,19 @@ namespace StudentRegistration.API
 
             services.AddScoped<ConnectionEf, ConnectionEf>();
 
+            //Repositorio genérico
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
             #region Injeção de dependencias dos Repositorios
             services.AddScoped<IStudentRepository, StudentRepository>();
-            
+            services.AddScoped<IUserRepository, UserRepository>();
+
             #endregion
 
-
             #region Injeção de dependencias dos Serviços
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IUserService, UserService>();
 
             #endregion
         }

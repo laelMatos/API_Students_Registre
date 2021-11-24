@@ -13,12 +13,12 @@ namespace StudentRegistration.Repository
             _Db = connectionEf;
         }
 
-        public bool Delete(Student student)
+        public bool Delete(string ra)
         {
-            if (student == null)
+            if (string.IsNullOrEmpty(ra))
                 throw new System.ArgumentNullException();
 
-            _Db.Students.Remove(student);
+            _Db.Students.Remove(_Db.Students.Find(ra));
             _Db.SaveChanges();
             return true;
         }

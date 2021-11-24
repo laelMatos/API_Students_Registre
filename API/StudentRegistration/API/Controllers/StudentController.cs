@@ -1,5 +1,6 @@
 ﻿using API.Model;
 using Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Domain;
@@ -10,13 +11,22 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize("Adm")]
     public class StudentController : Controller
     {
         /// <summary>
         /// Busca todos os alunos
         /// </summary>
         /// <returns></returns>
+        /// <response code="200">Retorna todos os alunos cadastrados</response>
+        /// <response code="400">Inconsistencia de dados</response>
+        /// <response code="401">Não authorizado</response>
+        /// <response code="500">Erro interno</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentMd))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Notification))]
         public IActionResult GetAll([FromServices] IStudentService studentService)
         {
             try
@@ -43,10 +53,18 @@ namespace API.Controllers
         /// <summary>
         /// Busca um aluno pelo RA
         /// </summary>
-        /// <param name="ra">Código do aluno</param>
+        /// <param name="model">Código do aluno</param>
         /// <returns></returns>
+        /// <response code="200">Retorna o novo aluno solicitado</response>
+        /// <response code="400">Inconsistencia de dados</response>
+        /// <response code="401">Não authorizado</response>
+        /// <response code="500">Erro interno</response>
         [HttpGet]
         [Route("byRa")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentMd))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Notification))]
         public IActionResult GetByRA(
             [FromServices] IStudentService studentService, [FromQuery] StudentRA model)
         {
@@ -54,16 +72,10 @@ namespace API.Controllers
             {
                 Student result = studentService.GetByRA(model.RA);
 
-                if (result == null)
+                if (!result.NOTIFICATION.Success)
                 {
-                    Response.StatusCode = (int)EHttpResponseCode.NotFound;
-                    return Json(new Notification()
-                    {
-                        Title = "Aluno não encontrado",
-                        Messages = new List<Messages> { new Messages {
-                            Message = "O RA informado não foi cadastrado",
-                            ErrorField = "RA", }}
-                    });
+                    Response.StatusCode = (int)result.NOTIFICATION.HttpStatusCode;
+                    return Json(result.NOTIFICATION);
                 }
                    
 
@@ -89,10 +101,12 @@ namespace API.Controllers
         /// <returns></returns>
         /// <response code="200">Retorna o novo aluno cadastrado</response>
         /// <response code="400">Inconsistencia de dados</response>
+        /// <response code="401">Não authorizado</response>
         /// <response code="500">Erro interno</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentMd))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(Notification))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Notification))]
         public IActionResult Add(
             [FromServices]IStudentService studentService, 
@@ -136,6 +150,7 @@ namespace API.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentMd))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(Notification))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Notification))]
         public IActionResult Updade(
             [FromServices] IStudentService studentService,
@@ -177,6 +192,7 @@ namespace API.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StudentMd))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Notification))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(Notification))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Notification))]
         public IActionResult Delete(
             [FromServices] IStudentService studentService,
@@ -186,26 +202,9 @@ namespace API.Controllers
             {
                 var result = studentService.Delete(model.RA);
 
-                if (!result)
-                {
-                    Response.StatusCode = (int)EHttpResponseCode.NotFound;
-                    return Json(new Notification()
-                    {
-                        Title = "Aluno não encontrado",
-                        Messages = new List<Messages> { new Messages {
-                            Message = "O RA informado não foi cadastrado",
-                            ErrorField = "RA", }}
-                    });
-                }
-
-                Response.StatusCode = (int)EHttpResponseCode.OK;
-                return Json(new 
-                {
-                    Title = "Remover aluno",
-                    Success = true,
-                    Messages = new List<object> { new  {
-                            Message = "Aluno Removido com sucesso" }}
-                }); 
+                Response.StatusCode = (int)result.HttpStatusCode;
+                return Json(result);
+                 
             }
             catch (Exception ex)
             {

@@ -1,19 +1,27 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudentRegistration.Domain;
+using StudentRegistration.Domain.Enuns;
 using StudentRegistration.Repository;
+using StudentRegistration.Service;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace StudentRegistration.API
 {
@@ -38,8 +46,46 @@ namespace StudentRegistration.API
             });
 
             services.AddCors();
-            
-            
+
+            #region Autenticação de usuário
+
+            //Politicas de autorização
+            //Possibilita restringir o acesso pelo tipo de usuário
+            services.AddAuthorization(options =>
+            {
+                //Administrador
+                options.AddPolicy(ETypeUser.Adm.ToString(), policy =>
+                policy.RequireClaim("TypeUser", ETypeUser.Adm.ToString()));
+                //Usuário
+                options.AddPolicy(ETypeUser.User.ToString(), policy =>
+                policy.RequireClaim("TypeUser", ETypeUser.User.ToString()));
+            });
+
+
+            var Key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+                )//Configuração do token JWT
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+
+                });
+            #endregion
+
+            #region Filtro de validações
+
             services.AddControllers(options => {
                 //Filtro de validações
                 options.Filters.Add(typeof(ValidateModelStateFilter));
@@ -50,6 +96,7 @@ namespace StudentRegistration.API
                 //Desativar filtro nativo para que utilize apenas o filtro personalizado
                 options.SuppressModelStateInvalidFilter = true;
             });
+            #endregion
 
             #region Conexão com o banco
             //Captura a connection string para se conectar com o banco de dados
@@ -151,6 +198,58 @@ namespace StudentRegistration.API
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "StudentRegistration.API v1");
                 });
             }
+
+            //Personalização de resposta para usuario não autenticado,
+            //token expirado ou erro não tratado
+            app.Use(async (context, next) =>
+            {
+                await next();
+                switch (context.Response.StatusCode)
+                {
+                    case (int)EHttpResponseCode.Unauthorized:
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsync(
+                            JsonConvert.SerializeObject(new Notification{
+                                Title = "Autorização inválida",
+                                HttpStatusCode= EHttpResponseCode.Unauthorized,
+                                Messages = new List<Messages> { new Messages {
+                            Message = "Usuario não autorizado",
+                            ErrorField = "Authorization", }}
+                            }, new JsonSerializerSettings{
+                                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                            }), Encoding.UTF8);
+                        break;
+                    case (int)EHttpResponseCode.Forbidden:
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsync(
+                            JsonConvert.SerializeObject(new Notification{
+                                Title = "Autorização inválida",
+                                HttpStatusCode = EHttpResponseCode.Forbidden,
+                                Messages = new List<Messages> { new Messages {
+                            Message = "Ação não permitida para o topo de usuário",
+                            ErrorField = "Authorization", }}
+                            }, new JsonSerializerSettings{
+                                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                            }), Encoding.UTF8);
+                        break;
+                    case (int)EHttpResponseCode.InternalServerError:
+                        context.Response.ContentType = "application/json";
+                        await context.Response.WriteAsync(
+                            JsonConvert.SerializeObject(new Notification{
+                                Title = "Erro interno",
+                                HttpStatusCode = EHttpResponseCode.InternalServerError,
+                                Messages = new List<Messages> { new Messages {
+                            Message = "Falha inesperada, entre em contato com o suporte",
+                            ErrorField = "", }}
+                            }, new JsonSerializerSettings{
+                                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                            }), Encoding.UTF8);
+                        break;
+                    default:
+                        break;
+                }
+
+            });
 
             app.UseHttpsRedirection();
             app.UseRouting();

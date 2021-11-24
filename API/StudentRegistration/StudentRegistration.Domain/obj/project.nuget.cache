@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "DBkNJ9f02nNVBw3sBpF4t3w1TwFeEVeh2ie13TKA6LawQUvQfuwScwCkcg1f9XWOH31yzIezp71vgfhOjy2WZA==",
+  "dgSpecHash": "Q5MYs4PMa/P02D8OXUpeidKrmWUyxtZF1XfpmVbErI/vyBH478HRwUYBU+e5y1xZj5X9u0O5Bn5vsUTRrQt4vg==",
   "success": true,
   "projectFilePath": "D:\\Trabalhos\\+Educacao\\Teste_09-11-21\\API\\StudentRegistration\\StudentRegistration.Domain\\StudentRegistration.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\cglae\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512"
+  ],
   "logs": []
 }

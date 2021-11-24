@@ -42,6 +42,19 @@ namespace StudentRegistration.Domain
             Success = false;
             _Messages = msgs;
         }
+
+        public override string ToString()
+        {
+            string mess = "";
+            foreach (var message in Messages.Select((value,i)=> new { value = value, index = i }))
+            {
+                mess += "{Message=\"" + message.value.Message+"\",ErrorField=\"" + message.value.ErrorField + "\"}";
+                if(message.index < Messages.Count()-1)
+                    mess+=",";
+            }
+
+            return "{Title =" + Title + ",Messages = [" + mess +"]}";
+        }
     }
 
     public struct Messages

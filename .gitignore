@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Cortex.API/obj
+/Cortex.API/bin/Debug/net5.0
+/Cortex.Service/obj
+/Cortex.Service/bin/Debug/netcoreapp3.1
+/Cortex.Repositorio/obj
+/Cortex.Repositorio/bin/Debug/netcoreapp3.1
+/Cortex.Model/obj
+/Cortex.Model/bin/Debug/netcoreapp3.1
+*.v2
+*.v2
+.vs/Cortex.Core/v16/.suo
